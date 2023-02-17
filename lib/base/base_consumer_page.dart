@@ -16,13 +16,17 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
   AutoDisposeStateNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
       setStateNtProvider();
 
+  @override
+  void initState() {
+    super.initState();
+    notifier = ref.read(stateNotifierProvider.notifier);
+  }
+
   void onRebuild(BaseState state, BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
     final stateProvider = ref.watch(stateNotifierProvider);
-
-    notifier = ref.read(stateNotifierProvider.notifier);
 
     ref.listen(stateNotifierProvider, (prevState, nextState) {
       if (nextState is ErrorState) {
@@ -41,23 +45,8 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
           if (stateProvider is ProgressState)
             Container(
               color: Colors.grey.withOpacity(0.3),
-              child: InkWell(
-                // ignore: no-empty-block
-                onTap: () {},
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        // Todo starter: change or remove logo.
-                        FlutterLogo(),
-                        SizedBox(height: 20),
-                        CircularProgressIndicator(),
-                      ],
-                    ),
-                  ),
-                ),
+              child: const Center(
+                child: CircularProgressIndicator(),
               ),
             ),
         ],

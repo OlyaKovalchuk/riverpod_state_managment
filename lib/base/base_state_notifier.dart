@@ -17,7 +17,9 @@ abstract class BaseStateNotifier extends StateNotifier<BaseState> {
     bool showProgress = true,
   }) async {
     try {
-      state = progressState ?? ProgressState();
+      if (showProgress) {
+        state = progressState ?? ProgressState();
+      }
       final response = await function();
       state = (await onComplete?.call(response)) ?? InitialState();
     } catch (error, stack) {

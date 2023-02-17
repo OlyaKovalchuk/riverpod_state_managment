@@ -7,15 +7,15 @@ import 'package:auth_riverpod/pages/auth/state_notifier/auth_state.dart';
 class AuthNotifier extends BaseStateNotifier {
   AuthNotifier(super.ref);
 
-  /// ref.read replaces us with injector<Api>().
+  /// ref.read replaces us with injector<Provider>().
   /// This also makes testing easier for us.
   ///
   /// For example:
   /// With Riverpod
-  /// authApiProvider.overrideWithValue(MockAuthApi())
+  /// authApiProvider.overrideWithValue(MockAuthProvider())
   ///
   /// With GetIt.
-  /// GetIt.I.registerSingleton<AuthApi>(MockAuthApi())
+  /// GetIt.I.registerSingleton<AuthApi>(MockAuthProvider())
   ///
   /// Also, with this method, we don't need to register a singleton as with GetIT
   late final _provider = ref.read(authProviderProvider);
