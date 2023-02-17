@@ -1,23 +1,23 @@
 import 'dart:async';
 
-import 'package:auth_riverpod/data/models/user_model.dart';
+import 'package:auth_riverpod/data/beans/user_bean.dart';
 
 class AuthApi {
-  Future<UserModel?> getUserSuccessfully() async {
+  Future<UserBean?> getUserSuccessfully() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    return UserModel(
+    return UserBean(
       firstName: 'Alex',
       lastName: 'Smith',
       email: 'alex.smith@gmail.com',
     );
   }
 
-  Future<bool> navigateToNextPage() async {
-    return true;
+  Future<void> navigateToNextPage() async {
+    return;
   }
 
-  Future<UserModel?> getUserFailure() async {
+  Future<UserBean?> getUserFailure() async {
     await Future.delayed(const Duration(seconds: 2));
     return throw ('Invalid creds');
   }

@@ -4,11 +4,14 @@ import 'package:auth_riverpod/base/base_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseStateNotifier extends StateNotifier<BaseState> {
-  BaseStateNotifier() : super(InitialState());
+  BaseStateNotifier(this.ref) : super(InitialState());
 
+  final AutoDisposeStateNotifierProviderRef<BaseStateNotifier, BaseState> ref;
+
+  /// doAsync in flutter_starter
   void handleState<T>(
     Future Function() function, {
-    FutureOr<BaseState?> Function(T response)? onComplete,
+    FutureOr<BaseState?> Function(T? response)? onComplete,
     OnErrorCallback? onError,
     BaseState? progressState,
     bool showProgress = true,

@@ -8,9 +8,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'dart:async';
 
 abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
-        Nt extends BaseStateNotifier> extends ConsumerState<T>
-    implements IStateNotifierProvider<Nt> {
+    Nt extends BaseStateNotifier> extends ConsumerState<T> {
   Nt? notifier;
+
+  AutoDisposeStateNotifierProvider<Nt, BaseState> setStateNtProvider();
+
+  AutoDisposeStateNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
+      setStateNtProvider();
 
   void onRebuild(BaseState state, BuildContext context) {}
 
@@ -74,9 +78,4 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
   FutureOr<void> onAction(BaseState state, BuildContext context) async {}
 
   Widget bodyWidget(BuildContext context);
-}
-
-abstract class IStateNotifierProvider<Nt extends BaseStateNotifier> {
-  late final AutoDisposeStateNotifierProvider<Nt, BaseState>
-      stateNotifierProvider;
 }
