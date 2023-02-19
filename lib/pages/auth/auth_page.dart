@@ -25,9 +25,19 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
       setStateNtProvider() => authNtProvider;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifier?.initializeApp();
+    });
+  }
+
+  @override
   void onRebuild(BaseState state, BuildContext context) {
     super.onRebuild(state, context);
     if (state is GotUserState) {
+      _user = state.user;
+    } else if (state is UserIsLoggedState) {
       _user = state.user;
     }
   }
@@ -43,7 +53,8 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
             if (_user != null) ...[
               Text('Full name: ${_user?.firstName} ${_user?.lastName}'),
               Text('Email: ${_user?.email}'),
-            ],
+            ] else
+              const Text('User is not signed in'),
             const Spacer(),
             ElevatedButton(
                 onPressed: notifier?.getUserSuccessfully,

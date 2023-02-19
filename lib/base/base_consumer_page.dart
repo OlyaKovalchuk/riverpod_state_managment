@@ -59,7 +59,13 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
       context: context,
       builder: (context) => AlertDialog(
         title: Text(state.title),
-        content: Text(state.msg),
+        content: const Text('Oops...'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Ok'),
+          )
+        ],
       ),
     );
   }

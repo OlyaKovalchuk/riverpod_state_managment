@@ -31,7 +31,7 @@ class _PaginationPageState
   @override
   void dispose() {
     _pagingController
-      ..removeListener(() => _onNextRequest(0))
+      ..removeListener(_onNextRequest)
       ..dispose();
     super.dispose();
   }
@@ -68,7 +68,7 @@ class _PaginationPageState
     return super.onAction(state, context);
   }
 
-  Future<void> _onNextRequest(int? offset) async {
+  Future<void> _onNextRequest([int offset = 0]) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifier?.getItems(offset);
     });
