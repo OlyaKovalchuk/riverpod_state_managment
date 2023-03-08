@@ -1,8 +1,7 @@
 import 'package:auth_riverpod/base/base_consumer_page.dart';
 import 'package:auth_riverpod/base/base_state.dart';
-import 'package:auth_riverpod/data/providers/providers.dart';
-import 'package:auth_riverpod/pages/pagination/state_notifier/pagination_state.dart';
-import 'package:auth_riverpod/pages/pagination/state_notifier/pagination_state_notifier.dart';
+import 'package:auth_riverpod/pages/pagination/state_controller/pagination_state.dart';
+import 'package:auth_riverpod/pages/pagination/state_controller/pagination_state_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -15,12 +14,12 @@ class PaginationPage extends ConsumerStatefulWidget {
 }
 
 class _PaginationPageState
-    extends BaseConsumerPage<PaginationPage, PaginationStateNotifier> {
+    extends BaseConsumerPage<PaginationPage, PaginationStateController> {
   final _pagingController = PagingController<int, int>(firstPageKey: 0);
 
   @override
-  AutoDisposeStateNotifierProvider<PaginationStateNotifier, BaseState>
-      setStateNtProvider() => paginationNtProvider;
+  AutoDisposeNotifierProvider<PaginationStateController, BaseState>
+      setStateNtProvider() => paginationStateControllerProvider;
 
   @override
   void initState() {

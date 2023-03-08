@@ -1,14 +1,13 @@
 import 'dart:async';
 
-import 'package:auth_riverpod/base/base_provider.dart';
 import 'package:auth_riverpod/base/base_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class BaseStateNotifier<Provider extends BaseProvider>
-    extends StateNotifier<BaseState> {
-  BaseStateNotifier(this.provider) : super(InitialState());
-
-  final Provider provider;
+abstract class BaseStateController extends AutoDisposeNotifier<BaseState> {
+  @override
+  BaseState build() {
+    return InitialState();
+  }
 
   /// doAsync in flutter_starter
   Future<void> handleState<T>(

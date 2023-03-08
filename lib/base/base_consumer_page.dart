@@ -8,12 +8,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'dart:async';
 
 abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
-    Nt extends BaseStateNotifier> extends ConsumerState<T> {
+    Nt extends BaseStateController> extends ConsumerState<T> {
   Nt? notifier;
 
-  AutoDisposeStateNotifierProvider<Nt, BaseState> setStateNtProvider();
+  AutoDisposeNotifierProvider<Nt, BaseState> setStateNtProvider();
 
-  AutoDisposeStateNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
+  AutoDisposeNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
       setStateNtProvider();
 
   @override
@@ -76,50 +76,4 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
   FutureOr<void> onAction(BaseState state, BuildContext context) async {}
 
   Widget bodyWidget(BuildContext context);
-}
-
-abstract class BaseConsPage<Nt extends BaseStateNotifier>
-    extends ConsumerWidget {
-  const BaseConsPage({super.key});
-
-  AutoDisposeStateNotifierProvider<Nt, BaseState> setStateNtProvider();
-
-  AutoDisposeStateNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
-      setStateNtProvider();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(
-      stateNotifierProvider,
-      (prevState, nextState) {
-        if (nextState is ErrorState) {
-          onError(nextState, context);
-        } else {
-          onAction(nextState, context);
-        }
-      },
-    );
-
-    return Builder(builder: (context) => bodyWidget(context, ref));
-  }
-
-  FutureOr<void> onError(ErrorState state, BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(state.title ?? 'Error'),
-        content: const Text('Oops...'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Ok'),
-          )
-        ],
-      ),
-    );
-  }
-
-  FutureOr<void> onAction(BaseState state, BuildContext context) async {}
-
-  Widget bodyWidget(BuildContext context, WidgetRef ref);
 }

@@ -1,12 +1,11 @@
 import 'package:auth_riverpod/base/base_state.dart';
-import 'package:auth_riverpod/data/providers/providers.dart';
-import 'package:auth_riverpod/widgets/splash_screen.dart';
+import 'package:auth_riverpod/pages/app/state_controller/app_controller.dart';
+import 'package:auth_riverpod/pages/app/state_controller/app_state.dart';
 import 'package:auth_riverpod/pages/auth/auth_page.dart';
 import 'package:auth_riverpod/widgets/error_page.dart';
+import 'package:auth_riverpod/widgets/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'state_notifier/app_state.dart';
 
 final _navKey = GlobalKey<NavigatorState>();
 
@@ -29,7 +28,7 @@ class _AppState extends ConsumerState<App> {
       final navContext = nav?.context;
       if (navContext != null) {
         Navigator.pushAndRemoveUntil(
-          context,
+          navContext,
           MaterialPageRoute(
             builder: (_) => AuthPage(user: state.user),
           ),
@@ -42,7 +41,7 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
     ref.listen(
-      appNtProvider,
+      appControllerProvider,
       onStateListener,
     );
 
