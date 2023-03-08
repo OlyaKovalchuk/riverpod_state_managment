@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 abstract class BaseStateNotifier extends StateNotifier<BaseState> {
   BaseStateNotifier(this.ref) : super(InitialState());
 
-  final AutoDisposeStateNotifierProviderRef<BaseStateNotifier, BaseState> ref;
+  final StateNotifierProviderRef<BaseStateNotifier, BaseState> ref;
 
   /// doAsync in flutter_starter
   Future<void> handleState<T>(
