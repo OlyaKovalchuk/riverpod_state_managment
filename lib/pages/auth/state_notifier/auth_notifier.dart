@@ -3,13 +3,9 @@ import 'package:auth_riverpod/base/base_state_notifier.dart';
 import 'package:auth_riverpod/data/models/user_model.dart';
 import 'package:auth_riverpod/data/providers/providers.dart';
 import 'package:auth_riverpod/pages/auth/state_notifier/auth_state.dart';
-import 'package:auth_riverpod/utils/get_random_user.dart';
 
 class AuthNotifier extends BaseStateNotifier {
-  AuthNotifier(super.ref) {
-    // it's the same as if we were calling a method in the initState in the widget
-    initializeApp();
-  }
+  AuthNotifier(super.ref);
 
   /// ref.read replaces us with injector<Provider>().
   /// This also makes testing easier for us.
@@ -23,11 +19,6 @@ class AuthNotifier extends BaseStateNotifier {
   ///
   /// Also, with this method, we don't need to register a singleton as with GetIT
   late final _provider = ref.read(authProviderProvider);
-
-  void initializeApp() => handleState<UserModel?>(
-        getRandomUser,
-        onComplete: (UserModel? user) => UserIsLoggedState(user),
-      );
 
   void navigateToNextPage() => handleState<void>(
         _provider.navigateToNextPage,

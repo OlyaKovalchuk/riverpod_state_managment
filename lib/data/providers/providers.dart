@@ -3,6 +3,7 @@ import 'package:auth_riverpod/data/apis/auth_api.dart';
 import 'package:auth_riverpod/data/apis/pagination_api.dart';
 import 'package:auth_riverpod/data/modules/auth_module.dart';
 import 'package:auth_riverpod/data/modules/pagination_module.dart';
+import 'package:auth_riverpod/pages/app/state_notifier/app_notifier.dart';
 import 'package:auth_riverpod/pages/auth/state_notifier/auth_notifier.dart';
 import 'package:auth_riverpod/pages/pagination/state_notifier/pagination_state_notifier.dart';
 import 'package:auth_riverpod/providers/auth_provider.dart';
@@ -48,6 +49,14 @@ PaginationApi paginationApi(_) {
 }
 
 /// State Notifiers
+final appNtProvider = StateNotifierProvider.autoDispose<AppNotifier, BaseState>(
+  (ref) {
+    return AppNotifier(ref);
+  },
+  // set name
+  name: 'AppStateProvider',
+);
+
 final authNtProvider =
     StateNotifierProvider.autoDispose<AuthNotifier, BaseState>(
   (ref) {

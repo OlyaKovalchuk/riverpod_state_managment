@@ -38,19 +38,24 @@ class _PaginationPageState
 
   @override
   Widget bodyWidget(BuildContext context) {
-    return SafeArea(
-      child: PagedListView<int, int>.separated(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<int>(
-          itemBuilder: (context, item, index) => ListTile(
-            title: Text('Item #$item'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pagination page'),
+      ),
+      body: SafeArea(
+        child: PagedListView<int, int>.separated(
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<int>(
+            itemBuilder: (context, item, index) => ListTile(
+              title: Text('Item #$item'),
+            ),
+            noMoreItemsIndicatorBuilder: (context) => const Center(
+              child: Text('No items found'),
+            ),
           ),
-          noMoreItemsIndicatorBuilder: (context) => const Center(
-            child: Text('No items found'),
+          separatorBuilder: (_, __) => const Divider(
+            color: Colors.black26,
           ),
-        ),
-        separatorBuilder: (_, __) => const Divider(
-          color: Colors.black26,
         ),
       ),
     );
