@@ -10,15 +10,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({
+    this.user,
     Key? key,
   }) : super(key: key);
+
+  final UserModel? user;
 
   @override
   ConsumerState createState() => _AuthPageState();
 }
 
 class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
-  UserModel? _user;
+  late UserModel? _user = widget.user;
 
   @override
   AutoDisposeStateNotifierProvider<AuthNotifier, BaseState>
@@ -29,14 +32,15 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
     super.onRebuild(state, context);
     if (state is GotUserState) {
       _user = state.user;
-    } else if (state is UserIsLoggedState) {
-      _user = state.user;
     }
   }
 
   @override
   Widget bodyWidget(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login page'),
+      ),
       body: SafeArea(
           child: Center(
         child: Column(

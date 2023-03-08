@@ -61,7 +61,7 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(state.title),
+        title: Text(state.title ?? 'Error'),
         content: const Text('Oops...'),
         actions: [
           TextButton(
@@ -76,4 +76,50 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
   FutureOr<void> onAction(BaseState state, BuildContext context) async {}
 
   Widget bodyWidget(BuildContext context);
+}
+
+abstract class BaseConsPage<Nt extends BaseStateNotifier>
+    extends ConsumerWidget {
+  const BaseConsPage({super.key});
+
+  AutoDisposeStateNotifierProvider<Nt, BaseState> setStateNtProvider();
+
+  AutoDisposeStateNotifierProvider<Nt, BaseState> get stateNotifierProvider =>
+      setStateNtProvider();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      stateNotifierProvider,
+      (prevState, nextState) {
+        if (nextState is ErrorState) {
+          onError(nextState, context);
+        } else {
+          onAction(nextState, context);
+        }
+      },
+    );
+
+    return Builder(builder: (context) => bodyWidget(context, ref));
+  }
+
+  FutureOr<void> onError(ErrorState state, BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(state.title ?? 'Error'),
+        content: const Text('Oops...'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Ok'),
+          )
+        ],
+      ),
+    );
+  }
+
+  FutureOr<void> onAction(BaseState state, BuildContext context) async {}
+
+  Widget bodyWidget(BuildContext context, WidgetRef ref);
 }
