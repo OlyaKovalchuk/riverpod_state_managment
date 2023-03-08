@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:auth_riverpod/base/base_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class BaseStateController extends AutoDisposeNotifier<BaseState> {
+mixin BaseStateCtrMixin on AutoDisposeNotifier<BaseState> {
   @override
   BaseState build() {
     return InitialState();

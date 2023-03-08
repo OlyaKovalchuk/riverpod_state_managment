@@ -9,7 +9,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'pagination_state_controller.g.dart';
 
 @riverpod
-class PaginationStateController extends BaseStateController {
+class PaginationStateController extends _$PaginationStateController
+    with BaseStateCtrMixin {
   static const _kLimit = 15;
 
   late final PaginationProvider _provider;

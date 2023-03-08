@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'app_controller.g.dart';
 
 @riverpod
-class AppController extends BaseStateController {
+class AppController extends _$AppController with BaseStateCtrMixin {
   late final AuthProvider _provider;
 
   @override

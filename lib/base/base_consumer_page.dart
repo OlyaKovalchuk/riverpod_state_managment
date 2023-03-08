@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'dart:async';
 
 abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
-    Nt extends BaseStateController> extends ConsumerState<T> {
+    Nt extends BaseStateCtrMixin> extends ConsumerState<T> {
   Nt? notifier;
 
   AutoDisposeNotifierProvider<Nt, BaseState> setStateNtProvider();
