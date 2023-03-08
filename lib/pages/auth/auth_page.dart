@@ -1,10 +1,10 @@
 import 'package:auth_riverpod/base/base_consumer_page.dart';
 import 'package:auth_riverpod/base/base_state.dart';
-import 'package:auth_riverpod/data/auth_notifier.dart';
 import 'package:auth_riverpod/data/models/user_model.dart';
-import 'package:auth_riverpod/main.dart';
-import 'package:auth_riverpod/pages/auth/auth_state.dart';
-import 'package:auth_riverpod/pages/pagination_page.dart';
+import 'package:auth_riverpod/data/providers/providers.dart';
+import 'package:auth_riverpod/pages/auth/state_notifier/auth_notifier.dart';
+import 'package:auth_riverpod/pages/auth/state_notifier/auth_state.dart';
+import 'package:auth_riverpod/pages/pagination/pagination_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,20 +14,30 @@ class AuthPage extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   @override
-  ConsumerState createState() => _AuthPage2State();
+  ConsumerState createState() => _AuthPageState();
 }
 
-class _AuthPage2State extends BaseConsumerPage<AuthPage, AuthNotifier> {
+class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
+  UserModel? _user;
+
   @override
   AutoDisposeStateNotifierProvider<AuthNotifier, BaseState>
-      stateNotifierProvider = authNtProvider;
+      setStateNtProvider() => authNtProvider;
 
-  UserModel? _user;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifier?.initializeApp();
+    });
+  }
 
   @override
   void onRebuild(BaseState state, BuildContext context) {
     super.onRebuild(state, context);
     if (state is GotUserState) {
+      _user = state.user;
+    } else if (state is UserIsLoggedState) {
       _user = state.user;
     }
   }
@@ -43,26 +53,21 @@ class _AuthPage2State extends BaseConsumerPage<AuthPage, AuthNotifier> {
             if (_user != null) ...[
               Text('Full name: ${_user?.firstName} ${_user?.lastName}'),
               Text('Email: ${_user?.email}'),
-            ],
+            ] else
+              const Text('User is not signed in'),
             const Spacer(),
             ElevatedButton(
-                onPressed: () {
-                  notifier?.getUserSuccessfully();
-                },
+                onPressed: notifier?.getUserSuccessfully,
                 child: const Text('Get user successfully')),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                 ),
-                onPressed: () {
-                  notifier?.getUserFailure();
-                },
+                onPressed: notifier?.getUserFailure,
                 child: const Text('Get user failure')),
             const SizedBox(height: 40),
             ElevatedButton(
-                onPressed: () {
-                  notifier?.navigateToNextPage();
-                },
+                onPressed: notifier?.navigateToNextPage,
                 child: const Text('Open Pagination page')),
           ],
         ),

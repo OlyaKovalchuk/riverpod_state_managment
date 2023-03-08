@@ -8,3 +8,9 @@ class GotUserState extends BaseState {
 }
 
 class OpenNewPage extends ActionState {}
+
+class UserIsLoggedState extends BaseState {
+  UserIsLoggedState(this.user);
+
+  final UserModel? user;
+}
