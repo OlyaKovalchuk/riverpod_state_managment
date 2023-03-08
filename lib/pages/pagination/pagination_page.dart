@@ -69,8 +69,6 @@ class _PaginationPageState
   }
 
   Future<void> _onNextRequest([int offset = 0]) async {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifier?.getItems(offset);
-    });
+    notifier?.getItems(offset);
   }
 }

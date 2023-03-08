@@ -12,8 +12,8 @@ class Logger extends ProviderObserver {
     if (kDebugMode) {
       print('''
 {
-    "provider": "${provider.name ?? provider.runtimeType}",
-    "newValue": "$newValue"
+    "provider": "${provider.name ?? provider.runtimeType.toString()}",
+    "newValue": "${newValue.runtimeType.toString()}"
 }
            ''');
     }
