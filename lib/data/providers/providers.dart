@@ -15,12 +15,14 @@ part 'providers.g.dart';
 /// Providers
 @riverpod
 AuthProvider authProvider(AuthProviderRef ref) {
-  return AuthProvider(ref);
+  final authModule = ref.read(authModuleProvider);
+  return AuthProvider(authModule);
 }
 
 @riverpod
 PaginationProvider paginationProvider(PaginationProviderRef ref) {
-  return PaginationProvider(ref);
+  final paginationModule = ref.read(paginationModuleProvider);
+  return PaginationProvider(paginationModule);
 }
 
 /// Modules
