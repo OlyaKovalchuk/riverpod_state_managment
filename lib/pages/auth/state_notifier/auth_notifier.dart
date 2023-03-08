@@ -6,7 +6,10 @@ import 'package:auth_riverpod/pages/auth/state_notifier/auth_state.dart';
 import 'package:auth_riverpod/utils/get_random_user.dart';
 
 class AuthNotifier extends BaseStateNotifier {
-  AuthNotifier(super.ref);
+  AuthNotifier(super.ref) {
+    // it's the same as if we were calling a method in the initState in the widget
+    initializeApp();
+  }
 
   /// ref.read replaces us with injector<Provider>().
   /// This also makes testing easier for us.

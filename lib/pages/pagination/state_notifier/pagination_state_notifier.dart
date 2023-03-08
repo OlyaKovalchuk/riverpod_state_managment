@@ -10,7 +10,7 @@ class PaginationStateNotifier extends BaseStateNotifier {
 
   static const _kLimit = 15;
 
-  void getItems(int? offset) {
+  Future<void> getItems(int? offset) {
     return handleState<PaginationModel>(
       showProgress: false,
       () => _provider.getItems(

@@ -25,14 +25,6 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
       setStateNtProvider() => authNtProvider;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifier?.initializeApp();
-    });
-  }
-
-  @override
   void onRebuild(BaseState state, BuildContext context) {
     super.onRebuild(state, context);
     if (state is GotUserState) {
@@ -56,9 +48,13 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
             ] else
               const Text('User is not signed in'),
             const Spacer(),
+
+            /// Get user successfully button
             ElevatedButton(
                 onPressed: notifier?.getUserSuccessfully,
                 child: const Text('Get user successfully')),
+
+            /// Get user failure button
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
@@ -66,6 +62,8 @@ class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
                 onPressed: notifier?.getUserFailure,
                 child: const Text('Get user failure')),
             const SizedBox(height: 40),
+
+            /// Open Pagination page button
             ElevatedButton(
                 onPressed: notifier?.navigateToNextPage,
                 child: const Text('Open Pagination page')),

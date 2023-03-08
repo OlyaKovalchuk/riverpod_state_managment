@@ -27,21 +27,24 @@ abstract class BaseConsumerPage<T extends ConsumerStatefulWidget,
   @override
   Widget build(BuildContext context) {
     final stateProvider = ref.watch(stateNotifierProvider);
-
-    ref.listen(stateNotifierProvider, (prevState, nextState) {
-      if (nextState is ErrorState) {
-        onError(nextState, context);
-      } else if (nextState is ActionState) {
-        onAction(nextState, context);
-      } else {
-        onRebuild(nextState, context);
-      }
-    });
+    ref.listen(
+      stateNotifierProvider,
+      (prevState, nextState) {
+        if (nextState is ErrorState) {
+          onError(nextState, context);
+        } else if (nextState is ActionState) {
+          onAction(nextState, context);
+        }
+      },
+    );
+    if (stateProvider is! ErrorState && stateProvider is! ActionState) {
+      onRebuild(stateProvider, context);
+    }
 
     return Scaffold(
       body: Stack(
         children: [
-          bodyWidget(context),
+          Builder(builder: (context) => bodyWidget(context)),
           if (stateProvider is ProgressState)
             Container(
               color: Colors.grey.withOpacity(0.3),

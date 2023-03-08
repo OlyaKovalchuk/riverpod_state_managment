@@ -9,7 +9,7 @@ abstract class BaseStateNotifier extends StateNotifier<BaseState> {
   final AutoDisposeStateNotifierProviderRef<BaseStateNotifier, BaseState> ref;
 
   /// doAsync in flutter_starter
-  void handleState<T>(
+  Future<void> handleState<T>(
     Future Function() function, {
     FutureOr<BaseState?> Function(T? response)? onComplete,
     OnErrorCallback? onError,
