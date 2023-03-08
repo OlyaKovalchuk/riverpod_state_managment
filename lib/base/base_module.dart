@@ -1,12 +1,9 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+abstract class BaseModule<Api, Converter> implements IConverter<Converter> {
+  BaseModule(this.api);
 
-abstract class BaseModule<Api, Converter> implements IModule<Api, Converter> {
-  BaseModule(this.ref);
-
-  final ProviderRef<BaseModule> ref;
+  final Api api;
 }
 
-abstract class IModule<Api, Converter> {
+abstract class IConverter<Converter> {
   late final Converter converter;
-  late final Api api;
 }

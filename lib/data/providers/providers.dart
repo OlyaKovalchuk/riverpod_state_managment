@@ -16,25 +16,27 @@ part 'providers.g.dart';
 /// Providers
 @riverpod
 AuthProvider authProvider(AuthProviderRef ref) {
-  final authModule = ref.read(authModuleProvider);
+  final authModule = ref.watch(authModuleProvider);
   return AuthProvider(authModule);
 }
 
 @riverpod
 PaginationProvider paginationProvider(PaginationProviderRef ref) {
-  final paginationModule = ref.read(paginationModuleProvider);
+  final paginationModule = ref.watch(paginationModuleProvider);
   return PaginationProvider(paginationModule);
 }
 
 /// Modules
 @riverpod
 AuthModule authModule(AuthModuleRef ref) {
-  return AuthModule(ref);
+  final authApi = ref.watch(authApiProvider);
+  return AuthModule(authApi);
 }
 
 @riverpod
 PaginationModule paginationModule(PaginationModuleRef ref) {
-  return PaginationModule(ref);
+  final paginationApi = ref.watch(paginationApiProvider);
+  return PaginationModule(paginationApi);
 }
 
 /// Apis
@@ -51,7 +53,8 @@ PaginationApi paginationApi(_) {
 /// State Notifiers
 final appNtProvider = StateNotifierProvider.autoDispose<AppNotifier, BaseState>(
   (ref) {
-    return AppNotifier(ref);
+    final authProvider = ref.watch(authProviderProvider);
+    return AppNotifier(authProvider);
   },
   // set name
   name: 'AppStateProvider',
@@ -60,7 +63,8 @@ final appNtProvider = StateNotifierProvider.autoDispose<AppNotifier, BaseState>(
 final authNtProvider =
     StateNotifierProvider.autoDispose<AuthNotifier, BaseState>(
   (ref) {
-    return AuthNotifier(ref);
+    final authProvider = ref.watch(authProviderProvider);
+    return AuthNotifier(authProvider);
   },
   // set name
   name: 'AuthStateProvider',
@@ -69,7 +73,8 @@ final authNtProvider =
 final paginationNtProvider =
     StateNotifierProvider.autoDispose<PaginationStateNotifier, BaseState>(
   (ref) {
-    return PaginationStateNotifier(ref);
+    final paginationProvider = ref.watch(paginationProviderProvider);
+    return PaginationStateNotifier(paginationProvider);
   },
   // set name
   name: 'PaginationStateProvider',

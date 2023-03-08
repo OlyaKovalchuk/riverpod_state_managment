@@ -5,6 +5,8 @@ import 'package:auth_riverpod/data/modules/auth_module.dart';
 class AuthProvider extends BaseProvider<AuthModule> {
   AuthProvider(super.module);
 
+  Future<UserModel?> getRandomUser() => module.getRandomUser();
+
   Future<UserModel?> getUserSuccessfully() => module.getUserSuccessfully();
 
   Future<void> navigateToNextPage() => module.navigateToNextPage();
