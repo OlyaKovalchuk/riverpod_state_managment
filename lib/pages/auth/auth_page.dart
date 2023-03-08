@@ -1,9 +1,8 @@
 import 'package:auth_riverpod/base/base_consumer_page.dart';
 import 'package:auth_riverpod/base/base_state.dart';
 import 'package:auth_riverpod/data/models/user_model.dart';
-import 'package:auth_riverpod/data/providers/providers.dart';
-import 'package:auth_riverpod/pages/auth/state_notifier/auth_notifier.dart';
-import 'package:auth_riverpod/pages/auth/state_notifier/auth_state.dart';
+import 'package:auth_riverpod/pages/auth/state_controller/auth_state.dart';
+import 'package:auth_riverpod/pages/auth/state_controller/auth_state_controller.dart';
 import 'package:auth_riverpod/pages/pagination/pagination_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,12 +19,12 @@ class AuthPage extends ConsumerStatefulWidget {
   ConsumerState createState() => _AuthPageState();
 }
 
-class _AuthPageState extends BaseConsumerPage<AuthPage, AuthNotifier> {
+class _AuthPageState extends BaseConsumerPage<AuthPage, AuthStateController> {
   late UserModel? _user = widget.user;
 
   @override
-  AutoDisposeStateNotifierProvider<AuthNotifier, BaseState>
-      setStateNtProvider() => authNtProvider;
+  AutoDisposeNotifierProvider<AuthStateController, BaseState>
+      setStateNtProvider() => authStateControllerProvider;
 
   @override
   void onRebuild(BaseState state, BuildContext context) {

@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:auth_riverpod/base/base_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class BaseStateNotifier extends StateNotifier<BaseState> {
-  BaseStateNotifier(this.ref) : super(InitialState());
-
-  final StateNotifierProviderRef<BaseStateNotifier, BaseState> ref;
+mixin BaseStateCtrMixin on AutoDisposeNotifier<BaseState> {
+  @override
+  BaseState build() {
+    return InitialState();
+  }
 
   /// doAsync in flutter_starter
   Future<void> handleState<T>(

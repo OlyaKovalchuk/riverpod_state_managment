@@ -1,14 +1,9 @@
-import 'package:auth_riverpod/base/base_state.dart';
 import 'package:auth_riverpod/data/apis/auth_api.dart';
 import 'package:auth_riverpod/data/apis/pagination_api.dart';
 import 'package:auth_riverpod/data/modules/auth_module.dart';
 import 'package:auth_riverpod/data/modules/pagination_module.dart';
-import 'package:auth_riverpod/pages/app/state_notifier/app_notifier.dart';
-import 'package:auth_riverpod/pages/auth/state_notifier/auth_notifier.dart';
-import 'package:auth_riverpod/pages/pagination/state_notifier/pagination_state_notifier.dart';
 import 'package:auth_riverpod/providers/auth_provider.dart';
 import 'package:auth_riverpod/providers/pagination_provider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'providers.g.dart';
@@ -16,23 +11,27 @@ part 'providers.g.dart';
 /// Providers
 @riverpod
 AuthProvider authProvider(AuthProviderRef ref) {
-  return AuthProvider(ref);
+  final authModule = ref.watch(authModuleProvider);
+  return AuthProvider(authModule);
 }
 
 @riverpod
 PaginationProvider paginationProvider(PaginationProviderRef ref) {
-  return PaginationProvider(ref);
+  final paginationModule = ref.watch(paginationModuleProvider);
+  return PaginationProvider(paginationModule);
 }
 
 /// Modules
 @riverpod
 AuthModule authModule(AuthModuleRef ref) {
-  return AuthModule(ref);
+  final authApi = ref.watch(authApiProvider);
+  return AuthModule(authApi);
 }
 
 @riverpod
 PaginationModule paginationModule(PaginationModuleRef ref) {
-  return PaginationModule(ref);
+  final paginationApi = ref.watch(paginationApiProvider);
+  return PaginationModule(paginationApi);
 }
 
 /// Apis
@@ -45,30 +44,3 @@ AuthApi authApi(_) {
 PaginationApi paginationApi(_) {
   return PaginationApi();
 }
-
-/// State Notifiers
-final appNtProvider = StateNotifierProvider.autoDispose<AppNotifier, BaseState>(
-  (ref) {
-    return AppNotifier(ref);
-  },
-  // set name
-  name: 'AppStateProvider',
-);
-
-final authNtProvider =
-    StateNotifierProvider.autoDispose<AuthNotifier, BaseState>(
-  (ref) {
-    return AuthNotifier(ref);
-  },
-  // set name
-  name: 'AuthStateProvider',
-);
-
-final paginationNtProvider =
-    StateNotifierProvider.autoDispose<PaginationStateNotifier, BaseState>(
-  (ref) {
-    return PaginationStateNotifier(ref);
-  },
-  // set name
-  name: 'PaginationStateProvider',
-);

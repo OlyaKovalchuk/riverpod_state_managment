@@ -1,13 +1,11 @@
 import 'package:auth_riverpod/base/base_provider.dart';
 import 'package:auth_riverpod/data/models/user_model.dart';
 import 'package:auth_riverpod/data/modules/auth_module.dart';
-import 'package:auth_riverpod/data/providers/providers.dart';
 
 class AuthProvider extends BaseProvider<AuthModule> {
-  AuthProvider(super.ref);
+  AuthProvider(super.module);
 
-  @override
-  late AuthModule module = ref.read(authModuleProvider);
+  Future<UserModel?> getRandomUser() => module.getRandomUser();
 
   Future<UserModel?> getUserSuccessfully() => module.getUserSuccessfully();
 

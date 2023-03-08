@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authProviderHash() => r'78cbdb9024ccc14a0e262c441c1a64f347f513ec';
+String _$authProviderHash() => r'c2cb4447113c50d554b0bf825c5b8724071deb0b';
 
 /// Providers
 ///
@@ -23,7 +23,7 @@ final authProviderProvider = AutoDisposeProvider<AuthProvider>.internal(
 
 typedef AuthProviderRef = AutoDisposeProviderRef<AuthProvider>;
 String _$paginationProviderHash() =>
-    r'94079c07a61aecda5e07cc80a7de83e8cf2ebc42';
+    r'97c3072ab44934292e0e362da4f6c0140790dbb8';
 
 /// See also [paginationProvider].
 @ProviderFor(paginationProvider)
@@ -39,7 +39,7 @@ final paginationProviderProvider =
 );
 
 typedef PaginationProviderRef = AutoDisposeProviderRef<PaginationProvider>;
-String _$authModuleHash() => r'b893770163a4a995eac27157e1cf811f63347fb9';
+String _$authModuleHash() => r'b37218c770786fd1cb4afcd75a8f50961f2f7b68';
 
 /// Modules
 ///
@@ -55,7 +55,7 @@ final authModuleProvider = AutoDisposeProvider<AuthModule>.internal(
 );
 
 typedef AuthModuleRef = AutoDisposeProviderRef<AuthModule>;
-String _$paginationModuleHash() => r'4778a8c39cb4aa459b942b78f3566a8520c65535';
+String _$paginationModuleHash() => r'0cf2d9d0f91bd4d0c3e3a67e024832c88ad01cc0';
 
 /// See also [paginationModule].
 @ProviderFor(paginationModule)

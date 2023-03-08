@@ -1,11 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:auth_riverpod/base/base_module.dart';
 
-abstract class BaseProvider<Module> implements IProvider<Module> {
-  BaseProvider(this.ref);
+abstract class BaseProvider<Module extends BaseModule> {
+  BaseProvider(this.module);
 
-  final ProviderRef<BaseProvider> ref;
-}
-
-abstract class IProvider<Module> {
-  late final Module module;
+  final Module module;
 }
